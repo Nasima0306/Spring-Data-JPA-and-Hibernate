@@ -1,14 +1,10 @@
 package com.example.EmployeeManagementSystem.Entity;
-import com.example.EmployeeManagementSystem.Entity.Department;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
-@NamedQuery(
-        name = "Employee.findByEmployeeName",
-        query = "SELECT e FROM Employee e WHERE e.name = ?1"
-)
 public class Employee {
 
     @Id
@@ -23,7 +19,26 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    public Employee() {}
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects;
+
+    public Employee() {
+    }
 
     public Long getId() {
         return id;
@@ -55,5 +70,21 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

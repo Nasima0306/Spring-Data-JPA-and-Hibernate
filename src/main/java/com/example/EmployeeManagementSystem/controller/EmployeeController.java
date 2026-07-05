@@ -71,11 +71,7 @@ public class EmployeeController {
         return employeeRepository.getAllEmployees();
     }
 
-    @GetMapping("/named/{name}")
-    public List<Employee> getEmployeeUsingNamedQuery(
-            @PathVariable String name) {
-        return employeeRepository.findByEmployeeName(name);
-    }
+
     @GetMapping("/page")
     public Page<Employee> getEmployeesPage(
             @RequestParam int page,
