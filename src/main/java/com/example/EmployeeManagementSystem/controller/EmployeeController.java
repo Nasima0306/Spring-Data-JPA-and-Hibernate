@@ -54,4 +54,22 @@ public class EmployeeController {
         employeeRepository.deleteById(id);
         return "Employee deleted successfully";
     }
+    @GetMapping("/name/{name}")
+    public List<Employee> getEmployeesByName(@PathVariable String name) {
+        return employeeRepository.findByName(name);
+    }
+    @GetMapping("/email/{email}")
+    public List<Employee> getEmployeesByEmail(@PathVariable String email) {
+        return employeeRepository.findByEmail(email);
+    }
+    @GetMapping("/all-query")
+    public List<Employee> getAllEmployeesUsingQuery() {
+        return employeeRepository.getAllEmployees();
+    }
+
+    @GetMapping("/named/{name}")
+    public List<Employee> getEmployeeUsingNamedQuery(
+            @PathVariable String name) {
+        return employeeRepository.findByEmployeeName(name);
+    }
 }

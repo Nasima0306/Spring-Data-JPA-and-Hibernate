@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employee")
+@NamedQuery(
+        name = "Employee.findByEmployeeName",
+        query = "SELECT e FROM Employee e WHERE e.name = ?1"
+)
 public class Employee {
 
     @Id
