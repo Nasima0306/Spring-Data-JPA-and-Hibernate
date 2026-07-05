@@ -112,4 +112,15 @@ public class EmployeeController {
             @PathVariable String email) {
         return employeeRepository.findEmployeesByEmail(email);
     }
+
+    @GetMapping("/native/all")
+    public List<Employee> getAllEmployeesNative() {
+        return employeeRepository.getAllEmployeesNative();
+    }
+
+    @GetMapping("/native/name/{name}")
+    public List<Employee> getEmployeeByNameNative(
+            @PathVariable String name) {
+        return employeeRepository.findEmployeeByNameNative(name);
+    }
 }
