@@ -1,11 +1,14 @@
 package com.example.EmployeeManagementSystem.controller;
 
+import com.example.EmployeeManagementSystem.EmployeeDTO;
+import com.example.EmployeeManagementSystem.EmployeeView;
 import com.example.EmployeeManagementSystem.Entity.Employee;
 import com.example.EmployeeManagementSystem.repository.EmployeeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -122,5 +125,15 @@ public class EmployeeController {
     public List<Employee> getEmployeeByNameNative(
             @PathVariable String name) {
         return employeeRepository.findEmployeeByNameNative(name);
+    }
+
+    @GetMapping("/projection")
+    public List<EmployeeView> getProjection() {
+        return employeeRepository.findBy();
+    }
+
+    @GetMapping("/dto")
+    public List<EmployeeDTO> getEmployeeDTO() {
+        return employeeRepository.getEmployeeDTO();
     }
 }

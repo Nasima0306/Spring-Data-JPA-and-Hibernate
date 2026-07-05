@@ -1,5 +1,7 @@
 package com.example.EmployeeManagementSystem.repository;
 
+import com.example.EmployeeManagementSystem.EmployeeDTO;
+import com.example.EmployeeManagementSystem.EmployeeView;
 import com.example.EmployeeManagementSystem.Entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,6 +36,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             nativeQuery = true
     )
     List<Employee> findEmployeeByNameNative(String name);
+
+
+    List<EmployeeView> findBy();
+
+
+    @Query("""
+SELECT new com.example.EmployeeManagementSystem.EmployeeDTO(
+e.name,
+e.email)
+FROM Employee e
+""")
+    List<EmployeeDTO> getEmployeeDTO();
 
 
 }
