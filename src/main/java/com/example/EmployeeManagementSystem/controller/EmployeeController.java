@@ -100,4 +100,16 @@ public class EmployeeController {
 
         return employeeRepository.findAll(pageable);
     }
+
+    @GetMapping("/jpql/name/{name}")
+    public List<Employee> getEmployeesByNameJPQL(
+            @PathVariable String name) {
+        return employeeRepository.findEmployeesByName(name);
+    }
+
+    @GetMapping("/jpql/email/{email}")
+    public List<Employee> getEmployeesByEmailJPQL(
+            @PathVariable String email) {
+        return employeeRepository.findEmployeesByEmail(email);
+    }
 }
