@@ -2,6 +2,10 @@ package com.example.EmployeeManagementSystem.controller;
 
 import com.example.EmployeeManagementSystem.Entity.Employee;
 import com.example.EmployeeManagementSystem.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,5 +75,33 @@ public class EmployeeController {
     public List<Employee> getEmployeeUsingNamedQuery(
             @PathVariable String name) {
         return employeeRepository.findByEmployeeName(name);
+    }
+    @GetMapping("/page")
+    public Page<Employee> getEmployeesPage(
+            @RequestParam int page,
+            @RequestParam int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return employeeRepository.findAll(pageable);
+    }
+    @GetMapping("/sort")
+    public List<Employee> getEmployeesSorted() {
+        return employeeRepository.findAll(
+                Sort.by("name").ascending()
+        );
+    }
+
+    @GetMapping("/page-sort")
+    public Page<Employee> getEmployeesPageAndSort(
+            @RequestParam int page,
+            @RequestParam int size) {
+
+        Pageable pageable =
+                PageRequest.of(
+                        page,
+                        size,
+                        Sort.by("name").ascending());
+
+        return employeeRepository.findAll(pageable);
     }
 }
